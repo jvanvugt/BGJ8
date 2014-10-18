@@ -7,10 +7,12 @@ public class EnemyScript : MonoBehaviour {
     public float speed = 3f;
 
     private GameObject text;
+    private float yScale;
 
 	// Use this for initialization
 	void Start () {
         text = GameObject.FindGameObjectsWithTag("Text")[0];
+        yScale = transform.localScale.y;
 	}
 	
 	// Update is called once per frame
@@ -18,6 +20,16 @@ public class EnemyScript : MonoBehaviour {
         // Look at player
         Vector3 dir = player.transform.position - transform.position;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg));
+        if (transform.rotation.eulerAngles.z > 90 && transform.rotation.eulerAngles.z < 270)
+        {
+            transform.localScale = new Vector3(transform.localScale.x,
+                                                -yScale, transform.localScale.z);
+        }
+        else
+        {
+            transform.localScale = new Vector3(transform.localScale.x,
+                                                yScale, transform.localScale.z);
+        }
 	}
 
     void FixedUpdate()
@@ -34,7 +46,10 @@ public class EnemyScript : MonoBehaviour {
             {
                 text.SendMessage("OnEnemyKilled");
             }
-            Destroy(gameObject);
+            particleSystem.Play();
+            renderer.enabled = false;
+            collider2D.enabled = false;
+            Destroy(gameObject, 0.3f);
         }
     }
 }

@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour {
 
         for(int i = maxHealth -1; i >= 0; i--)
         {
-            hearths[i].SetActive(i <= currentHealth);
+            hearths[i].SetActive(i+1 <= currentHealth);
         }
     }
 	
