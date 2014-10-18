@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour {
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg));
         if (currentHealth < 1)
         {
-            Application.LoadLevel("game over");
+            Application.LoadLevel("gameover");
         }
 
         for(int i = maxHealth -1; i >= 0; i--)
