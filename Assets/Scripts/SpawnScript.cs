@@ -12,7 +12,6 @@ public class SpawnScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         spawn.GetComponent<EnemyScript>().player = player;
-	
 	}
 	
 	// Update is called once per frame
