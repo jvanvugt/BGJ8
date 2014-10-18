@@ -8,11 +8,12 @@ public class BulletScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         rigidbody2D.velocity = transform.right * speed;
+        transform.position = transform.position + transform.right * 0.5f;
         Destroy(gameObject, 3f);
 	}
 	
     void OnHitEnemy()
     {
-        Destroy(gameObject);
+        Destroy(gameObject,0.05f);
     }
 }

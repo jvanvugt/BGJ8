@@ -5,13 +5,15 @@ public class PlayerController : MonoBehaviour {
 
     public Vector2 speed = new Vector2(1, 1);
     public GameObject bullet;
-    public int health = 100;
+    public int currentHealth = 3;
+    public int maxHealth = 3;
+    public GameObject[] hearths = new GameObject[3];
 
     private float rateOfFire = 0.25f;
     private float lastFired = 0f;
     private Animator anim;
-    int idleHash = Animator.StringToHash("Idle");
-    int walkingHash = Animator.StringToHash("Walking");
+    private int idleHash = Animator.StringToHash("Idle");
+    private int walkingHash = Animator.StringToHash("Walking");
 
 	// Use this for initialization
 	void Start () {
@@ -43,6 +45,15 @@ public class PlayerController : MonoBehaviour {
         Vector3 objectPos = Camera.main.WorldToScreenPoint(transform.position);
         Vector3 dir = Input.mousePosition - objectPos;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg));
+        if (currentHealth < 1)
+        {
+            Application.LoadLevel("game over");
+        }
+
+        for(int i = maxHealth -1; i >= 0; i--)
+        {
+            hearths[i].SetActive(i <= currentHealth);
+        }
     }
 	
 	// Update is called once per frame
@@ -54,6 +65,6 @@ public class PlayerController : MonoBehaviour {
 
     void OnHitEnemy()
     {
-        health -= 1;
+        currentHealth -= 1;
     }
 }

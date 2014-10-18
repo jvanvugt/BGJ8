@@ -20,7 +20,7 @@ public class SpawnScript : MonoBehaviour {
         if (Time.time > lastSpawned + spawnTimer)
         {
             lastSpawned = Time.time;
-            Instantiate(spawn);
+            Instantiate(spawn, transform.position, transform.rotation);
         }
 	}
 }
