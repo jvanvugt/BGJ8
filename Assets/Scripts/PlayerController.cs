@@ -9,14 +9,25 @@ public class PlayerController : MonoBehaviour {
 
     private float rateOfFire = 0.25f;
     private float lastFired = 0f;
+    private Animator anim;
+    int idleHash = Animator.StringToHash("Idle");
+    int walkingHash = Animator.StringToHash("Walking");
 
 	// Use this for initialization
 	void Start () {
-	
+        anim = GetComponent<Animator>();
 	}
 
     void Update()
     {
+        if (Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f)
+        {
+            anim.Play(walkingHash);
+        }
+        else
+        {
+            anim.Play(idleHash);
+        }
         if (Input.GetButton("Fire1"))
         {
             if (Time.time > lastFired + rateOfFire)
