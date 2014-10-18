@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour {
 
     public Vector2 speed = new Vector2(1, 1);
     public GameObject bullet;
+    public int health = 100;
 
     private float rateOfFire = 0.25f;
     private float lastFired = 0f;
@@ -26,6 +27,8 @@ public class PlayerController : MonoBehaviour {
                 b.transform.rotation = transform.rotation;
             }
         }
+
+        // Look at mouse
         Vector3 objectPos = Camera.main.WorldToScreenPoint(transform.position);
         Vector3 dir = Input.mousePosition - objectPos;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg));
@@ -37,4 +40,9 @@ public class PlayerController : MonoBehaviour {
                                         Input.GetAxisRaw("Vertical") * speed.y);
         rigidbody2D.MovePosition(rigidbody2D.position + moveDir * Time.deltaTime);
 	}
+
+    void OnHitEnemy()
+    {
+        health -= 1;
+    }
 }

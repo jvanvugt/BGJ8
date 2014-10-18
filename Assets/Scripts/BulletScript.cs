@@ -3,13 +3,16 @@ using System.Collections;
 
 public class BulletScript : MonoBehaviour {
 
+    public float speed = 10f;
+
 	// Use this for initialization
 	void Start () {
-        rigidbody2D.velocity = transform.right * 10f;
-        Destroy(gameObject, 1f);
+        rigidbody2D.velocity = transform.right * speed;
+        Destroy(gameObject, 3f);
 	}
 	
-	// Update is called once per frame
-	void FixedUpdate () {
+    void OnHitEnemy()
+    {
+        Destroy(gameObject);
     }
 }
