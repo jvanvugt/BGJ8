@@ -6,9 +6,11 @@ public class EnemyScript : MonoBehaviour {
     public GameObject player;
     public float speed = 3f;
 
+    private GameObject text;
+
 	// Use this for initialization
 	void Start () {
-	
+        text = GameObject.FindGameObjectsWithTag("Text")[0];
 	}
 	
 	// Update is called once per frame
@@ -28,6 +30,10 @@ public class EnemyScript : MonoBehaviour {
         if(other.tag == "Player" || other.tag == "Bullet")
         {
             other.SendMessage("OnHitEnemy");
+            if (other.tag == "Bullet")
+            {
+                text.SendMessage("OnEnemyKilled");
+            }
             Destroy(gameObject);
         }
     }

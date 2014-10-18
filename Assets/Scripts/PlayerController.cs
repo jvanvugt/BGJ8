@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-    public Vector2 speed = new Vector2(1, 1);
+    public float speed = 3f;
     public GameObject bullet;
     public int currentHealth = 3;
     public int maxHealth = 3;
@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour {
     private Animator anim;
     private int idleHash = Animator.StringToHash("Idle");
     private int walkingHash = Animator.StringToHash("Walking");
+    private float snappiness = 10f;
 
 	// Use this for initialization
 	void Start () {
@@ -58,9 +59,10 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        Vector2 moveDir = new Vector2(Input.GetAxisRaw("Horizontal") * speed.x, 
-                                        Input.GetAxisRaw("Vertical") * speed.y);
-        rigidbody2D.MovePosition(rigidbody2D.position + moveDir * Time.deltaTime);
+        Vector2 moveDir = new Vector2(Input.GetAxisRaw("Horizontal") * speed, 
+                                        Input.GetAxisRaw("Vertical") * speed);
+
+        rigidbody2D.velocity = Vector3.Lerp(rigidbody2D.velocity, moveDir, Time.deltaTime * snappiness);
 	}
 
     void OnHitEnemy()
