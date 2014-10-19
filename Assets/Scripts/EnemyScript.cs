@@ -5,6 +5,7 @@ public class EnemyScript : MonoBehaviour {
 
     public GameObject player;
     public float speed = 3f;
+    public GameObject hearth;
 
     private GameObject text;
     private float yScale;
@@ -44,7 +45,11 @@ public class EnemyScript : MonoBehaviour {
             other.SendMessage("OnHitEnemy");
             if (other.tag == "Bullet")
             {
-                text.SendMessage("OnEnemyKilled");
+                audio.Play();
+                if(text.name != "ProgressText")
+                    text.SendMessage("OnEnemyKilled");
+                if(Random.Range(0,15) == 5)
+                    Instantiate(hearth, transform.position, Quaternion.identity);
             }
             particleSystem.Play();
             renderer.enabled = false;

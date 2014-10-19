@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour {
     public int currentHealth = 3;
     public int maxHealth = 3;
     public GameObject[] hearths = new GameObject[3];
+    public AudioClip shoot;
+    public AudioClip hit;
 
     private float rateOfFire = 0.25f;
     private float lastFired = 0f;
@@ -39,6 +41,8 @@ public class PlayerController : MonoBehaviour {
                 GameObject b = (GameObject) Instantiate(bullet);
                 b.transform.position = transform.position;
                 b.transform.rotation = transform.rotation;
+                audio.clip = shoot;
+                audio.Play();
             }
         }
 
@@ -68,5 +72,13 @@ public class PlayerController : MonoBehaviour {
     void OnHitEnemy()
     {
         currentHealth -= 1;
+        audio.clip = hit;
+        audio.Play();
+    }
+
+    void OnHearthPickup()
+    {
+        if (currentHealth < maxHealth)
+            currentHealth++;
     }
 }
